@@ -2,6 +2,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import api from "../api";
 import styles from "../styles/VisualizarProduto.module.scss";
+import ReactLoading from 'react-loading';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 import Image from "next/image";
 
@@ -17,7 +18,7 @@ export default function VisualizarProduto() {
         imagem: string;
     };
     //pego o id do produto que está na url
-
+    const [done, setDone] = useState(false);
     const [produto, setProduto] = useState<Data | null>(null);
     const [imagesOfProduto, setImagesOfProduto] = useState<string[]>([]);
     const [currentImage, setCurrentImage] = useState<number>(0);
@@ -58,12 +59,15 @@ export default function VisualizarProduto() {
                 }
             }
             setImagesOfProduto(images?.length > 0 ? images : imagesProds);
+            setDone(true);
         }
         loadProduto();
     },[]);
 
     return (
-        <div className={styles.container}>
+        <>
+        {done ? (
+            <div className={styles.container}>
             {produto && (
                 <div className={styles.content}>
                     {imagesOfProduto.length > 0 && (
@@ -110,5 +114,13 @@ export default function VisualizarProduto() {
                 </div>
             )}
         </div>
+        ) 
+        : (
+            <div className={styles.loader}><ReactLoading type={"spin"} color={"#000"} height={250} width={250} /></div>
+        )}
+          
+        </>
+      
+        
     )
 }
