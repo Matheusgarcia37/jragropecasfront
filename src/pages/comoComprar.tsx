@@ -14,7 +14,7 @@ const ComoComprar = () => {
           </li>
           <li>
             <span>2.</span>
-            Clique no botão de "Consultar preço".
+            Clique no botão de Consultar preço.
           </li>
           <li>
             <span>3.</span>
