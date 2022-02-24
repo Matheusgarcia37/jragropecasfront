@@ -6,16 +6,7 @@ const ComoComprar = () => {
       <div className={styles.informationsContato}>
         <h3>COMO COMPRAR</h3>
         <h2>Aqui na Jr Agropeças você pode comprar suas peças por WhatsApp</h2>
-       {/* criar uma lista numerada 
-        Escolha o produto que deseja comprar.
-        Clique no botão de "Comprar pelo WhatsApp".
-        Você será direcionado para o WhatsApp do nosso vendedor.
-        Envie o código ou a referência da peça que você precisa.
-        Escolha a transportadora que melhor lhe atender.
-        Você pode escolher sua forma de pagamento, PIX, cartão, boleto.
-        Após o pagamento sua peça já será despachada.
-        E é só esperar que a peça chegará na sua casa!
-       */}
+
         <ul>
           <li>
             <span>1.</span>
