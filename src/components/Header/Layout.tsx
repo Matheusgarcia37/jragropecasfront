@@ -166,7 +166,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       </Link>
                     </li>
                     <li className={styles.navitem}>
-                      <Link href="/catalogo">
+                      <Link href="/como-comprar">
                         <a
                           className={
                             isOpen === false
@@ -175,7 +175,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           }
                           onClick={closeMenu}
                         >
-                          <AiOutlineBook className={styles.icon} /> Catálogo
+                          <AiOutlineBook className={styles.icon} /> Como comprar
                         </a>
                       </Link>
                     </li>

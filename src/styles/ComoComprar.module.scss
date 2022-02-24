@@ -1,0 +1,71 @@
+.container {
+  height: 70vh;
+  width: 100%;
+  max-width: 1900px;
+  margin: 0 auto;
+
+  .informationsContato {
+  padding: 2rem 5%;
+    .linha {
+      display: flex;
+      align-items: center;
+      .icon {
+        margin-right: 1rem;
+        background-color: #fff;
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+   h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    //sombra
+    text-shadow: 0px 0px 0px var(--secondary-color);
+    margin: 2rem 0 1rem 0;
+   }
+   ul {
+     li {
+       span {
+         margin-right: .5rem;
+         font-weight: 600;
+       } 
+      list-style: none;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+      //sombra
+      text-shadow: 0px 0px 3px var(--prima);
+      font-weight: 400;
+     }
+   }
+  }
+}
+
+//quando mobilie, deixar fonts menores
+@media (max-width: 768px) {
+  .container {
+    .informationsContato {
+      h3 {
+        font-size: 1.2rem;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      ul {
+        padding-left: 1rem;
+        li {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

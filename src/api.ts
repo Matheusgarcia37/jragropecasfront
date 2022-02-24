@@ -6,9 +6,9 @@ export const Api = (ctx?: any): AxiosInstance  => {
     const { 'jragropecas-token': token } = parseCookies(ctx);
 
     const api = axios.create({
-        //baseURL: 'http://localhost:3001',
+        baseURL: 'http://localhost:3001',
         
-        baseURL: 'https://jr-agropecas.herokuapp.com/',
+        //baseURL: 'https://jr-agropecas.herokuapp.com/',
     });
 
     if(token){
