@@ -166,7 +166,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       </Link>
                     </li>
                     <li className={styles.navitem}>
-                      <Link href="/como-comprar">
+                      <Link href="/comoComprar">
                         <a
                           className={
                             isOpen === false
