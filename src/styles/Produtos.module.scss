@@ -4,7 +4,7 @@
     justify-content: center;
     max-width: 1920px;
     width: 100%;
-    padding: 0 2rem;
+    padding: 0 1rem;
     ul {
         list-style: none;
         padding: 0;
@@ -80,7 +80,6 @@
         flex-wrap: wrap;
         .contentProduto {
             cursor: pointer;
-            max-width: 143px;
             height: 300px;
             margin: 0.6rem 0.6rem;
             background-color: #fafafa;
@@ -230,7 +229,7 @@
     .containerProdutos {
         .contentProdutos {
             .contentProduto {
-                max-width: 128px;  
+                max-width: 166px;  
                 margin: 0.6rem 2%;
                 p {
                     font-size: .9rem;
