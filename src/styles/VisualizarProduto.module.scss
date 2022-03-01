@@ -54,6 +54,16 @@
                     background-color: white;
                     border: 1px solid var(--primary-color);
                     cursor: pointer;
+                   .iconeChangeImage {
+                       display: flex;
+                       align-items: center;
+                       justify-content: center;
+                       margin: 0;
+                       padding: 0 .3rem;
+                       svg {
+                           margin: 0;
+                       }
+                   }
                 }
             }
         }

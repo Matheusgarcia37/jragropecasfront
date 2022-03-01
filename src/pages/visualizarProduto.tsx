@@ -81,12 +81,15 @@ export default function VisualizarProduto() {
                                   <button onClick={() => {
                                       setCurrentImage(currentImage - 1 >= 0 ? currentImage - 1 : imagesOfProduto.length - 1);
                                   }}>
-                                      <MdArrowBack size={30} color="#000" />
+                                     <div className={styles.iconeChangeImage}> <MdArrowBack size={30} color="#000" /></div>
                                   </button>
                                   <button onClick={() => {
                                       setCurrentImage(currentImage + 1 === imagesOfProduto.length ? 0 : currentImage + 1);
                                   }}>
+                                      <div className={styles.iconeChangeImage}>
                                       <MdArrowForward size={30} color="#000" />
+                                      </div>
+                                     
                                   </button>
                               </div>
                               <div className={styles.otherImages}>
