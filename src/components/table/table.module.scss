@@ -1,0 +1,82 @@
+.containerTableProdutos {
+    padding: 0 5%;
+    .tableProdutos {
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin: 0;
+        width: 100%;
+        .headerTableProdutos {
+            tr {
+                th {
+                    //css table header
+                    text-align: center;
+                    font-size: .75em;
+                    font-weight: bold;
+                    text-align: center;
+                    font-family: "Poppins", sans-serif;
+                    padding: 10px;
+                    border: 2px solid  var(--primary-color);
+                    border-spacing: 0;
+                    background-color: rgb(229, 229, 226);
+                }
+            }
+        }
+        .bodyTableProdutos {
+            .contentTableProdutos {
+                td {
+                    padding: 0;
+                    margin: 0;
+                    border: 2px solid  var(--primary-color);
+                    text-align: center;
+                    //css table body
+                    font-family: "Poppins", sans-serif;
+                    padding: 5px;
+                    font-size: .75em;
+                    max-height: min-content;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    
+                }
+                .iconButton {
+                    cursor: pointer;
+                }
+                .column {
+                   height: 50px;
+                }
+                .columnDesc {
+                    width: 300px;
+                }
+
+                
+                
+            }
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    .pagination_pagina {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 0.2rem;
+        width: 2rem;
+        margin: .2rem .2rem;
+        font-size: .85rem;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+    }
+}
+.active_pagination {
+    background-color: var(--secondary-color)!important;
+    color: var(--primary-color)!important;
+}
+

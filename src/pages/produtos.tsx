@@ -194,7 +194,7 @@ const Produtos = () => {
                 </button>
               </div>
             </div>
-            : <div className={styles.loader}><ReactLoading type={"spin"} color={"#000"} height={250} width={250} /></div>
+            : <div className={styles.loader}><ReactLoading type={"bars"} color={"#000"}  /></div>
         }
       </div>
 

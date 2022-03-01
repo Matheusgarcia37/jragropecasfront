@@ -14,6 +14,8 @@ import { IoMdImages } from "react-icons/io";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Table from "../../../components/table/index";
+
 type Produtos = [
     {
         id: string;
@@ -154,6 +156,50 @@ export default function Produtos() {
         setOffset(0);
     }
 
+    // <th>Codigo</th>
+    //                     <th>Descricao</th>
+    //                     <th>Codigo de referência</th>
+    //                     <th>Aplicação</th>
+    //                     <th>Marca</th>
+    //                     <th>Data de criação</th>
+    //                     <th>Ultima atualização</th>
+    //                     <th>Imagens</th>
+    //                     <th>Editar</th>
+    //                     <th>Deletar</th>
+    const columns = [
+        {
+            name: "Codigo",
+        },
+        {
+            name: "Descricao",
+        },
+        {
+            name: "Codigo de referência",
+        },
+        {
+            name: "Aplicação",
+        },
+        {
+            name: "Marca",
+        },
+        {
+            name: "Data de criação",
+        },
+        {
+            name: "Ultima atualização",
+        },
+        {
+            name: "Imagens",
+        },
+        {
+            name: "Editar",
+        },
+        {
+            name: "Deletar",
+        }
+    ];
+
+
     return (
         <div className={styles.container}>
             <div className={styles.headerContent}>
@@ -202,7 +248,10 @@ export default function Produtos() {
                     <MdArrowForward></MdArrowForward>
                 </button>
             </div>
-            <div className={styles.containerTableProdutos}><table className={styles.tableProdutos}>
+
+            <Table data={currentItens as any} columns={columns}  changeImages={changeImages} deletarItem={deleteProduto}/>
+
+            {/*  <div className={styles.containerTableProdutos}><table className={styles.tableProdutos}>
                 <thead className={styles.headerTableProdutos}>
                     <tr>
                         <th>Codigo</th>
@@ -252,7 +301,7 @@ export default function Produtos() {
                     ))}
                 </tbody>
             </table>
-            </div>
+            </div> */}
 
         </div>
     )

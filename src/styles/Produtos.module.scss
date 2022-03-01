@@ -79,6 +79,7 @@
         justify-content: center;
         flex-wrap: wrap;
         .contentProduto {
+            max-width: 175px;
             cursor: pointer;
             height: 300px;
             margin: 0.6rem 0.6rem;

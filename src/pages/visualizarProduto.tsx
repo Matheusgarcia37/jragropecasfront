@@ -31,7 +31,7 @@ export default function VisualizarProduto() {
     const consultarPreco = (produto: Data) => {
         //enviar uma mensagem por whatsapp para o numero 5537999980449
         //com o produto.descricao e o produto.codigo_interno
-        let message = `Olá gostaria de saber mais sobre o produto: \n\n${produto.descricao}\nCodigo ${produto.codigo_interno}`;
+        let message = `Olá, gostaria de saber se este produto está em estoque e qual o preço, informações sobre o produto: \n\n${produto.descricao}\nCodigo ${produto.codigo_interno}`;
         message = window.encodeURIComponent(message);
         window.open(
             `https://api.whatsapp.com/send?phone=5537999980449&text=${message}`
@@ -73,7 +73,7 @@ export default function VisualizarProduto() {
                     {imagesOfProduto.length > 0 && (
                           <div className={styles.illustration}>
                           <div className={styles.destaqueImage}>
-                              <Image  height={500} width={500} layout="intrinsic" src={imagesOfProduto[currentImage]} alt="imagem do produto" />
+                              <Image  height={400} width={400} layout="intrinsic" src={imagesOfProduto[currentImage]} alt="imagem do produto" />
                           </div>
                           {/* div para escolher outras imagens */}
                           <div>
@@ -116,7 +116,7 @@ export default function VisualizarProduto() {
         </div>
         ) 
         : (
-            <div className={styles.loader}><ReactLoading type={"spin"} color={"#000"} height={250} width={250} /></div>
+            <div className={styles.loader}><ReactLoading type={"bars"} color={"#000"} /></div>
         )}
           
         </>
