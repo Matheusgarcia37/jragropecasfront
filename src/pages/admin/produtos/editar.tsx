@@ -17,6 +17,7 @@ type Produto = {
     marca: string;
     preco: number;
     uploads: Imagem[];
+    destaque: boolean;
 }
 
 type Imagem = {
@@ -35,6 +36,7 @@ export default function EditarProdutos({ produto: prod }: { produto: Produto }) 
         marca: string;
         preco: number | string;
         imagens: FileList;
+        destaque: boolean;
     }
 
     const { register, handleSubmit, watch } = useForm<FormData>({
@@ -44,13 +46,14 @@ export default function EditarProdutos({ produto: prod }: { produto: Produto }) 
             codigo_referencia: produto?.codigo_referencia ? produto.codigo_referencia : "",
             aplicacao: produto?.aplicacao ? produto.aplicacao : "",
             marca: produto?.marca ? produto.marca : "",
-            preco: produto?.preco ? produto.preco : ""
+            preco: produto?.preco ? produto.preco : "",
+            destaque: produto?.destaque ? produto.destaque : false,
         }
     });
     const imagensUpload = watch("imagens");
 
     const onSubmit = async (data: any) => {
-        const { codigo_interno, descricao, codigo_referencia, aplicacao, marca, preco, imagens } = data;
+        const { codigo_interno, descricao, codigo_referencia, aplicacao, marca, preco, imagens, destaque } = data;
         try {
             const formData = new FormData();
             formData.append("id", produto.id);
@@ -60,6 +63,7 @@ export default function EditarProdutos({ produto: prod }: { produto: Produto }) 
             formData.append("aplicacao", aplicacao);
             formData.append("marca", marca);
             formData.append("preco", preco);
+            formData.append("destaque", destaque);
             for (let i = 0; i < imagens.length; i++) {
                 formData.append("file", imagens[i]);
             }
@@ -140,6 +144,10 @@ export default function EditarProdutos({ produto: prod }: { produto: Produto }) 
                     <div className={!watch('preco') ? styles.floatLabel : styles.floatLabel + ' ' + styles.label_active}>
                         <label htmlFor="preco">Preço</label>
                         <input type="number" className="form-control" id="preco" {...register("preco")} />
+                    </div>
+                    <div className={styles.checkbox}>
+                        <input type="checkbox" className={styles.checkbox_input} id="destaque" {...register("destaque")} />
+                        <label htmlFor="destaque" className={styles.checkbox_label}>Produto em destaque</label>
                     </div>
                     <div>
                         <p>Imagens</p>

@@ -151,7 +151,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         </a>
                       </Link>
                     </li>
-                    <li className={styles.navitem}>
+               {/*      <li className={styles.navitem}>
                       <Link href="/representantes">
                         <a
                           className={
@@ -164,7 +164,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           <FaUserFriends className={styles.icon} /> Representantes
                         </a>
                       </Link>
-                    </li>
+                    </li> */}
                     <li className={styles.navitem}>
                       <Link href="/comoComprar">
                         <a

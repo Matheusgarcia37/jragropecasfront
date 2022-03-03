@@ -32,7 +32,7 @@ const Contato = () => {
           <div className={styles.icon}>
             <GrLocation />
           </div>
-        <p>Endereço: </p>
+        <p>Endereço: Av. Jair Leite, n° 934 - Centro, CEP 35.585-000 - Pimenta-MG</p>
         </div>
       </div>
     </div>

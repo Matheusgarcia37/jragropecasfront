@@ -14,6 +14,7 @@ export default function NovoProduto() {
         marca: string;
         preco: number;
         imagens: FileList;
+        destaque: boolean;
     }
     const { register, handleSubmit, watch } = useForm<FormData>({
       
@@ -21,7 +22,7 @@ export default function NovoProduto() {
     const imagensUpload = watch("imagens");
     const onSubmit = async (data: FormData) => {
         console.log(data)
-        const { codigo_interno, descricao, codigo_referencia, aplicacao, marca, preco, imagens } = data;
+        const { codigo_interno, descricao, codigo_referencia, aplicacao, marca, preco, imagens, destaque } = data;
         try {
             const formData = new FormData();
             formData.append("codigo_interno", codigo_interno);
@@ -30,6 +31,7 @@ export default function NovoProduto() {
             formData.append("aplicacao", aplicacao);
             formData.append("marca", marca);
             formData.append("preco", preco.toString());
+            formData.append("destaque", destaque.toString());
             for(let i = 0; i < imagens.length; i++) {
                 formData.append("file", imagens[i]);
             }
@@ -82,6 +84,10 @@ export default function NovoProduto() {
                     <div className={!watch('preco') ? styles.floatLabel : styles.floatLabel + ' ' + styles.label_active}>
                         <label htmlFor="preco">Preço</label>
                         <input type="number" className="form-control" id="preco" {...register("preco")}/>
+                    </div>
+                    <div className={styles.checkbox}>
+                        <input type="checkbox" className={styles.checkbox_input} id="destaque" {...register("destaque")} />
+                        <label htmlFor="destaque" className={styles.checkbox_label}>Produto em destaque</label>
                     </div>
                     {/* input de imagens */}
                     <div className={styles.inputImagens}>

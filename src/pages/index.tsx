@@ -1,7 +1,7 @@
-import type { InferGetServerSidePropsType, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
+import Router from "next/router";
 
 import image1 from "../images/background_1.jpeg";
 import image2 from "../images/background_2.jpeg";
@@ -26,6 +26,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useEffect, useState } from "react";
+import api from "../api";
 
 type Data = {
   nome: string;
@@ -36,7 +38,7 @@ type Data = {
 };
 
 const Home = () => {
-  const produtos: any = [];
+  const [produtos, setProdutos] = useState([]);
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -45,6 +47,15 @@ const Home = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  useEffect(() => {
+    const getProdsDestaque = async () => {
+      const { data } = await api.get("/produto/destaque");
+
+      setProdutos(data);
+    };
+    getProdsDestaque();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -172,29 +183,45 @@ const Home = () => {
 
         <div className={styles.linha_de_produtos}>
           <div className={styles.linha_de_produtos__text}>
-            <p>Conheças nossa</p>
-            <h3>Linha de produtos agrícolas</h3>
+            <h3>Produtos em destaque</h3>
           </div>
         </div>
-        <div className={styles.container_produtos}>
-          {produtos.map((produto: any, key: any) => {
-            return (
-              <div className={styles.container_produtos__produto} key={key}>
-                <div className={styles.container_produtos__produto__image}>
-                  <Image
-                    src={produto.imagem}
-                    width={200}
-                    height={200}
-                    alt="produto"
-                  />
-                </div>
-                <div className={styles.container_produtos__produto__text}>
-                  <h3>{produto.nome}</h3>
-                  <p>{produto.descricao}</p>
-                </div>
-              </div>
-            );
-          })}
+        <div className={styles.containerProdutos}>
+          <div className={styles.contentContainerProdutos}>
+            <div className={styles.contentProdutos}>
+              {produtos.map((produto: any, key) => {
+                return (
+                  <div
+                    className={styles.contentProduto}
+                    key={key}
+                    onClick={() => {
+                      //envio para a pagina de visualizar produto com a query produto.id
+                      Router.push({
+                        pathname: "/visualizarProduto",
+                        query: { id: produto.id },
+                      });
+                    }}
+                  >
+                    <div className={styles.imageProduto}>
+                      <Image
+                        src={
+                          produto.uploads[0]?.url ||
+                          "https://via.placeholder.com/300x300"
+                        }
+                        width={200}
+                        height={200}
+                        alt="produto"
+                      />
+                    </div>
+                    <div className={styles.informationsProduto}>
+                      <p>{produto.descricao || "Produto sem nome"}</p>
+                      {/* <p>{produto.descricao}</p> */}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </main>
     </div>
