@@ -35,13 +35,23 @@
                     max-height: min-content;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    
                 }
                 .iconButton {
                     cursor: pointer;
                 }
                 .column {
                    height: 50px;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                    .imagesEditContainer {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        .imagesEdit {
+                            margin-right: 8px;
+                        }
+                    }
                 }
                 .columnDesc {
                     width: 300px;

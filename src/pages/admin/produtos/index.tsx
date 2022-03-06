@@ -80,7 +80,7 @@ export default function Produtos() {
         }
     }
 
-    const changeImages = async (e: any, id: string) => {
+    const changeImages = async (e: any, id: string, produto: any) => {
         e.preventDefault();
         try {
             console.log(e.target.files);
@@ -89,9 +89,16 @@ export default function Produtos() {
                 formData.append('file', e.target.files[i]);
             }
             formData.append('id', id);
-            const teste = await api.put(`/produto/images`, formData);
+            const { data } = await api.put(`/produto/images`, formData);
             e.target.value = "";
-            console.log(teste);
+
+            if(data){
+                produto.uploads.push({
+                    files: e.target.files
+                })
+                setProdutos([...produtos]);
+            }
+           
         } catch (error: any) {
             console.log(error)
             Swal.fire({
