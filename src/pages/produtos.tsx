@@ -25,8 +25,9 @@ const Produtos = () => {
     url: string 
   };
 
+  
   const [done, setDone] = useState(false);
-
+  
   const [produtosData, setProdutosData] = useState<Data[] | []>([]);
   const [produtos, setProdutos] = useState<Data[] | []>([]);
 
@@ -36,9 +37,9 @@ const Produtos = () => {
   const limit = 100;
   const [offset, setOffset] = useState(0);
 
-
+  
   const pages = Math.ceil(produtos.length / limit);
-
+  
   const current = offset ? (offset / limit) + 1 : 1;
 
   const firstPage = Math.max(current - MAX_LEFT, 1);
@@ -47,29 +48,99 @@ const Produtos = () => {
 
   const {register, handleSubmit} = useForm({});
 
-
+  
   const optionsRelevancia = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' }
   ]
-
+  
   const optionsModelo = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' }
   ]
-
+  
   const optionsCategoria = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' }
   ]
   
-
+  
   const filterProds = (e: any) => {
     const { descricao } = e;
     const produtosFiltrados = produtosData.filter(produto => produto.descricao.toLowerCase().includes(descricao.toLowerCase()));
+    setProdutos(produtosFiltrados);
+    setOffset(0);
+  }
+
+  const dataFiltro = [
+    {
+      titulo: "Categorias",
+      valor: "",
+      filtros: [
+        {
+          nome: "Plantadeiras",
+          valor: "plantadeira",
+        },
+        {
+          nome: "Colheitadeiras",
+          valor: "colheitadeira",
+        },
+        {
+          nome: "Tratores",
+          valor: "trator",
+        },
+        {
+          nome: "Lubrificantes",
+          valor: "lubr",
+        },
+        {
+          nome: "Parafusos",
+          valor: "paraf"
+        },
+        {
+          nome: "Pulverizadores",
+          valor: "pulveriza"
+        },
+        {
+          nome: "Ferramentas",
+          valor: "ferramenta"
+        },
+        {
+          nome: "Correias",
+          valor: "correia"
+        }
+      ]
+    },
+    {
+      titulo: "Filtros",
+      valor: "filtro",
+      filtros: [
+        {
+          nome: "Ar",
+          valor: "ar",
+        },
+        {
+          nome: "Combustível",
+          valor: "combustivel",
+        },
+        {
+          nome: "Motor",
+          valor: "motor",
+        },
+        {
+          nome: "Hidráulico",
+          valor: "hidraulico",
+        }
+      ]
+    }
+  ]
+
+  const selectTypeFilter = (e:any, index1: number, index2: number) => {
+    e.preventDefault();
+    const produtosFiltrados = produtosData.filter(produto => produto.descricao.toLowerCase().includes(dataFiltro[index1].valor)).filter(produto => produto.descricao.toLowerCase().includes(dataFiltro[index1].filtros[index2].valor));
     setProdutos(produtosFiltrados);
     setOffset(0);
   }
@@ -83,28 +154,27 @@ const Produtos = () => {
     }
     getProducts();
   }, [])
-
+  
   const changePage = (page: any) => {
     setOffset((page - 1) * limit)
   }
   return (
     <div className={styles.container}>
       <div className={styles.filtroInfo}>
-        <div>
-          <p>Categorias</p>
-          <ul>
-            <li>Apparel</li>
-            <li>Shop All</li>
-          </ul>
-        </div>
-
-        <div>
-          <p>Modelos</p>
-          <ul>
-            <li>teste1</li>
-            <li>teste2</li>
-          </ul>
-        </div>
+        {dataFiltro.map((filtro, index1) => {
+          return (
+            <div key={index1}>
+              <p>{filtro.titulo}</p>
+              <ul>
+                {filtro.filtros.map((filtro, index2) => {
+                  return (
+                    <li key={index2} onClick={(e) => selectTypeFilter(e, index1, index2)}>{filtro.nome}</li>
+                  )
+                })}
+              </ul>
+            </div>
+          )
+        })}
       </div>
 
       <div className={styles.containerProdutos}>
@@ -197,7 +267,7 @@ const Produtos = () => {
             : <div className={styles.loader}><ReactLoading type={"bars"} color={"#000"}  /></div>
         }
       </div>
-
+{/* 
       <div className={styles.filtroPorRelevancia}>
         <p>Relevancia</p>
         <ul>
@@ -206,7 +276,7 @@ const Produtos = () => {
           <li>Data de lançamento</li>
           <li>Valor</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };
