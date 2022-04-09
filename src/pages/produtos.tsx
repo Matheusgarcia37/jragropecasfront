@@ -30,7 +30,8 @@ const Produtos = () => {
   
   const [produtosData, setProdutosData] = useState<Data[] | []>([]);
   const [produtos, setProdutos] = useState<Data[] | []>([]);
-
+  const [valueSelect1, setValueSelect1] = useState(null);
+  const [valueSelect2, setValueSelect2] = useState(null);
 
   const MAX_ITEMS = 9;
   const MAX_LEFT = (MAX_ITEMS - 1) / 2;
@@ -49,32 +50,72 @@ const Produtos = () => {
   const {register, handleSubmit} = useForm({});
 
   
-  const optionsRelevancia = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+  const optionsCategorias = [
+    {
+      label: "Plantadeiras",
+      value: "plantadeira",
+      type: 'categoria'
+    },
+    {
+      label: "Colheitadeiras",
+      value: "colheitadeira",
+      type: 'categoria'
+    },
+    {
+      label: "Tratores",
+      value: "trator",
+      type: 'categoria'
+    },
+    {
+      label: "Lubrificantes",
+      value: "lubr",
+      type: 'categoria'
+    },
+    {
+      label: "Parafusos",
+      value: "paraf",
+      type: 'categoria'
+    },
+    {
+      label: "Pulverizadores",
+      value: "pulveriza",
+      type: 'categoria'
+    },
+    {
+      label: "Ferramentas",
+      value: "ferramenta",
+      type: 'categoria'
+    },
+    {
+      label: "Correias",
+      value: "correia",
+      type: 'categoria'
+    }
   ]
   
-  const optionsModelo = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+  const optionsFiltros = [
+    {
+      label: "Ar",
+      value: "ar",
+      type: 'filtro'
+    },
+    {
+      label: "Combustível",
+      value: "combustivel",
+      type: 'filtro'
+    },
+    {
+      label: "Motor",
+      value: "motor",
+      type: 'filtro'
+    },
+    {
+      label: "Hidráulico",
+      value: "hidraulico",
+      type: 'filtro'
+    }
   ]
   
-  const optionsCategoria = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
-  
-  
-  const filterProds = (e: any) => {
-    const { descricao } = e;
-    const produtosFiltrados = produtosData.filter(produto => produto.descricao.toLowerCase().includes(descricao.toLowerCase()));
-    setProdutos(produtosFiltrados);
-    setOffset(0);
-  }
-
   const dataFiltro = [
     {
       titulo: "Categorias",
@@ -137,6 +178,30 @@ const Produtos = () => {
       ]
     }
   ]
+  
+  const filtroSelected = (e: any) => {
+    const { type, value } = e;
+    const filter1 = type === 'categoria' ? '' : type;
+    const produtosFiltrados = produtosData.filter(produto => produto.descricao.toLowerCase().includes(filter1)).filter(produto => produto.descricao.toLowerCase().includes(value));
+    setProdutos(produtosFiltrados);
+    setOffset(0);
+
+    if(type === 'categoria'){
+      setValueSelect1(e);
+      setValueSelect2(null);
+    }else if(type === 'filtro'){
+      setValueSelect2(e);
+      setValueSelect1(null);
+    }
+  }
+
+  const filterProds = (e: any) => {
+    const { descricao } = e;
+    const produtosFiltrados = produtosData.filter(produto => produto.descricao.toLowerCase().includes(descricao.toLowerCase()));
+    setProdutos(produtosFiltrados);
+    setOffset(0);
+  }
+
 
   const selectTypeFilter = (e:any, index1: number, index2: number) => {
     e.preventDefault();
@@ -187,9 +252,8 @@ const Produtos = () => {
            </form>
           </div>
           <div className={styles.selectsFilterMobile}>
-            <div className={styles.selectfilterMovile}><Select options={optionsCategoria} /></div>
-            <div className={styles.selectfilterMovile}><Select options={optionsModelo} /></div>
-            <div className={styles.selectfilterMovile}><Select options={optionsRelevancia} /></div>
+            <div className={styles.selectfilterMovile}><Select options={optionsCategorias} placeholder='Categorias' onChange={(e) => filtroSelected(e)} value={valueSelect1} /></div>
+            <div className={styles.selectfilterMovile}><Select options={optionsFiltros} placeholder='Filtros'  onChange={(e) => filtroSelected(e)} value={valueSelect2} /></div> 
           </div>
         </div>
 
