@@ -3,7 +3,7 @@ import Lottie from 'react-lottie';
 import loginLottie from '../lotties/login.json'
 import styles from "../styles/LoginAdmin.module.scss";
 import Image from 'next/image';
-import logo from '../images/logoFundoBranco.jpeg';
+import logo from '../assets/logoFundoBranco.jpeg';
 import { AuthContext } from '../contexts/AuthContext';
 import Swal from 'sweetalert2'
 export default function LoginAdmin() {
