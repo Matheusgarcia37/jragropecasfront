@@ -313,25 +313,3 @@ export default function Produtos() {
         </div>
     )
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { ['jragropecas-token']: token } = parseCookies(context);
-
-    if (!token) {
-        return {
-            redirect: {
-                destination: '/loginAdmin',
-                permanent: false
-            }
-        }
-    }
-
-    const apiClient = Api(context);
-
-    return {
-        props: {
-
-        }
-    }
-}
-

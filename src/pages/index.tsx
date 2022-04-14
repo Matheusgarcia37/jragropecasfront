@@ -3,10 +3,10 @@ import Image from "next/image";
 import styles from "../styles/Home.module.scss";
 import Router from "next/router";
 
-import image1 from "../images/background_1.jpeg";
-import image2 from "../images/background_2.jpeg";
-import image3 from "../images/background_3.jpeg";
-import image4 from "../images/background_4.jpeg";
+import image1 from "../assets/background_1.jpeg";
+import image2 from "../assets/background_2.jpeg";
+import image3 from "../assets/background_3.jpeg";
+import image4 from "../assets/background_4.jpeg";
 
 import agricultura1 from "../lotties/agricultura1.json";
 // import Swiper core and required modules

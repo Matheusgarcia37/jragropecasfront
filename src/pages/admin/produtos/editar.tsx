@@ -5,9 +5,10 @@ import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { MdUploadFile } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import router from "next/router";
 type Produto = {
     id: string;
     codigo_interno: string;
@@ -15,7 +16,7 @@ type Produto = {
     codigo_referencia: string;
     aplicacao: string;
     marca: string;
-    preco: number;
+    preco: number | null;
     uploads: Imagem[];
     destaque: boolean;
 }
@@ -25,10 +26,46 @@ type Imagem = {
     url: string
 }
 
-export default function EditarProdutos({ produto: prod }: { produto: Produto }) {
-    const [produto, setProduto] = useState<Produto>(prod);
+export default function EditarProdutos() {
+    const [produto, setProduto] = useState<Produto>({
+        id: "",
+        codigo_interno: "",
+        descricao: "",
+        codigo_referencia: "",
+        aplicacao: "",
+        marca: "",
+        preco: null,
+        uploads: [],
+        destaque: false,
+    });
+    useEffect(() => {
+        const getInitial = async () => {
+            //get jragropecas-token of cookie
+            const token = parseCookies()['jragropecas-token'];
+            if (!token) {
+                return router.push("/loginAdmin");
+            }
+            //get id of params
+            const id = router.query.id;
+            const apiClient = Api();
+            const { data } = await apiClient.post("/produto/getProdutoById", { id });
+            setProduto(data);
+            reset({
+                id: data.id,
+                codigo_interno: data.codigo_interno,
+                descricao: data.descricao,
+                codigo_referencia: data.codigo_referencia,
+                aplicacao: data.aplicacao,
+                marca: data.marca,
+                preco: data.preco,
+                destaque: data.destaque
+            });
+        }
+        getInitial();
+    }, [])
 
     type FormData = {
+        id: string;
         codigo_interno: string;
         descricao: string;
         codigo_referencia: string;
@@ -39,24 +76,25 @@ export default function EditarProdutos({ produto: prod }: { produto: Produto }) 
         destaque: boolean;
     }
 
-    const { register, handleSubmit, watch } = useForm<FormData>({
+    const { register, handleSubmit, watch, reset } = useForm<FormData>({
         defaultValues: {
-            codigo_interno: produto?.codigo_interno ? produto.codigo_interno : "",
-            descricao: produto?.descricao ? produto.descricao : "",
-            codigo_referencia: produto?.codigo_referencia ? produto.codigo_referencia : "",
-            aplicacao: produto?.aplicacao ? produto.aplicacao : "",
-            marca: produto?.marca ? produto.marca : "",
-            preco: produto?.preco ? produto.preco : "",
-            destaque: produto?.destaque ? produto.destaque : false,
+            id: "",
+            codigo_interno: "",
+            descricao: "",
+            codigo_referencia: "",
+            aplicacao: "",
+            marca: "",
+            preco: "",
+            destaque: false,
         }
     });
     const imagensUpload = watch("imagens");
 
     const onSubmit = async (data: any) => {
-        const { codigo_interno, descricao, codigo_referencia, aplicacao, marca, preco, imagens, destaque } = data;
+        const { id, codigo_interno, descricao, codigo_referencia, aplicacao, marca, preco, imagens, destaque } = data;
         try {
             const formData = new FormData();
-            formData.append("id", produto.id);
+            formData.append("id", id);
             formData.append("codigo_interno", codigo_interno);
             formData.append("descricao", descricao);
             formData.append("codigo_referencia", codigo_referencia);
@@ -195,25 +233,4 @@ export default function EditarProdutos({ produto: prod }: { produto: Produto }) 
             </form>
         </div>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { ['jragropecas-token']: token } = parseCookies(context);
-    const { id } = context.query;
-    if (!token) {
-        return {
-            redirect: {
-                destination: '/loginAdmin',
-                permanent: false
-            }
-        }
-    }
-
-    const apiClient = Api(context);
-    const { data } = await apiClient.post("/produto/getProdutoById", { id });
-    return {
-        props: {
-            produto: data
-        }
-    }
 }

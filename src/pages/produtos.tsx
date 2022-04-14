@@ -345,14 +345,5 @@ const Produtos = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: {
-
-    }
-  }
-}
-
-
 
 export default Produtos;
